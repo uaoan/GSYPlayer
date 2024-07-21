@@ -224,3 +224,42 @@ videoView.setTopLayoutVisibility();
 | a                       | 小窗按钮     |
 | b                       | 投屏按钮     |
 | c                       | 设置按钮     |
+
+
+
+
+### 投屏
+ **投屏使用代码** 
+
+
+```
+new Screen().setStaerActivity(MainActivity.this)
+            .setName("斗破苍穹") 
+            .setUrl("https://s.xlzys.com/play/9avDmPgd/index.m3u8")
+            .setImageUrl("http://i0.hdslb.com/bfs/article/96fa4320db5115711c8c30afaff936910595d336.png")
+            .show();
+```
+ 
+ **————————————————————————————————————————————————————————————————————————** 
+
+
+
+ ### [更多方法请点击前往 >](https://github.com/Doikki/DKVideoPlayer/wiki/API)
+
+
+ ### 感谢
+   **[DKVideoPlayer](https://github.com/Doikki/DKVideoPlayer)** 
+
+
+  **————————————————————————————————————————————————————————————————————————** 
+
+
+ ### [更多方法请点击前往 >](https://github.com/CarGuo/GSYVideoPlayer)
+
+
+ ### 感谢
+   **[DKVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer)** 
+
+
+ **————————————————————————————————————————————————————————————————————————** 
+
