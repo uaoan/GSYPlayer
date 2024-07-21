@@ -35,7 +35,76 @@ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-rele
  implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x86:v8.6.0-release-jitpack'
  implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x64:v8.6.0-release-jitpack'
 ```
- 
+
+  **添加权限**
+
+```
+<!-- 请求访问网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 请求访问网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+```
+
+###  **简单使用** 
+
+ **添加布局** 
+
+```
+  <com.uaoanlao.uaoangsyplayer.View.UaoanGSYPlayerView
+        android:id="@+id/detail_player"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+```
+
+
+ **在Activity中** 
+
+
+```
+@Override
+    protected void onPause() {
+        super.onPause();
+        //暂停播放
+        player.onVideoPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //继续播放
+        player.onVideoPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //释放播放器
+        player.onVideoReleaseAllVideos();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+       if (!player.onBackPressed()) {
+            super.onBackPressed();
+        }
+    }
+```
+
+
+ **在AndroidManifest.xml中** 
+
+
+```
+<activity
+    android:name=".PlayerActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:screenOrientation="portrait" /> 
+```
+
+
 
 ```
 //播放器单独布局传入播放器变量 则传入父控件布局
