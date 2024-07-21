@@ -83,6 +83,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
     private LinearLayout err_layout; //播放失败
     private TextView err_button;
     private LinearLayout finish_layout; //播放完成
+    private CardView finish_card2;
     private TextView finish_button1,finish_button2; //重播  播放下一集
     private String setupURL="",setupTITLE="";
     private boolean setupCACHEWITHPLAY=false;
@@ -128,6 +129,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
         finish_layout=view.findViewById(R.id.finish_layout);
         finish_button1=view.findViewById(R.id.finish_button1);
         finish_button2=view.findViewById(R.id.finish_button2);
+        finish_card2=view.findViewById(R.id.finish_2);
         xiaochuang=view.findViewById(R.id.xiaochuang);
         touping=view.findViewById(R.id.touping);
         shezhi=view.findViewById(R.id.shezhi);
@@ -598,6 +600,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
         shangyiji.setVisibility(ks1);
         xiayiji.setVisibility(ks2);
         xuanji.setVisibility(ks3);
+        finish_card2.setVisibility(ks2);
     }
 
 
