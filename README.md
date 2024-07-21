@@ -111,6 +111,9 @@ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-rele
 player.setVideoLayout(player);
 
 
+//设置动画效果（28种动画 输入序号即可）
+player.setLoading(1);
+
 //设置播放链接
 String source1 = "http://43.248.129.14:15223/m3u8_cache/m3u8/62d22999ba487d228bc965fc135c7014.m3u8";
 player.setUp(source1, false, "唐朝诡事录第二季-第一集");
