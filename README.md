@@ -74,7 +74,7 @@ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-rele
     protected void onResume() {
         super.onResume();
         //继续播放
-        player.onVideoPause();
+        player.onVideoResume(false);
     }
 
     @Override
