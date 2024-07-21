@@ -1,3 +1,41 @@
+### 集成
+ **1.在 project 的 build.gradle 文件中找到 allprojects{} 代码块添加以下代码：** 
+
+```
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }      //增加 jitPack Maven 仓库
+    }
+}
+```
+ **在 app 的 settings.gradle 文件中找到 dependencies{} 代码块，并在其中加入以下语句：** 
+
+```
+implementation 'com.github.uaoan:GSYPlayer:1.0'
+implementation 'com.tencent:mmkv-static:1.3.0'
+implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.6.0-release-jitpack'
+implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-release-jitpack'
+```
+
+**其他依赖**
+```
+implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-release-jitpack'
+
+ //是否需要ExoPlayer模式
+ implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-exo2:v8.6.0-release-jitpack'
+
+ //是否需要AliPlayer模式
+ implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-aliplay:v8.6.0-release-jitpack'
+
+ //根据你的需求ijk模式的so
+ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64:v8.6.0-release-jitpack'
+ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv7a:v8.6.0-release-jitpack'
+ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv5:v8.6.0-release-jitpack'
+ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x86:v8.6.0-release-jitpack'
+ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x64:v8.6.0-release-jitpack'
+```
+ 
 
 ```
 //播放器单独布局传入播放器变量 则传入父控件布局
