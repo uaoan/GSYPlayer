@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         player=findViewById(R.id.detail_player);
-
+        player.setLoading(22);
         player.setVideoLayout(player);
         exo=findViewById(R.id.exo);
         ijk=findViewById(R.id.ijk);
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         String source1 = "http://43.248.129.14:15223/m3u8_cache/m3u8/62d22999ba487d228bc965fc135c7014.m3u8";
         player.setUp(source1, false, "唐朝诡事录第二季-第一集");
-        PlayerFactory.setPlayManager(AliPlayerManager.class);
+        //PlayerFactory.setPlayManager(AliPlayerManager.class);
         player.startPlayLogic();
 
         exo.setOnClickListener(new View.OnClickListener() {

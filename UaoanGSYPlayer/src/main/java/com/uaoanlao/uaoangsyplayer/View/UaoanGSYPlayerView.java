@@ -36,6 +36,7 @@ import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.uaoanlao.uaoangsyplayer.Loading.AVLoadingIndicatorView;
 import com.uaoanlao.uaoangsyplayer.NetSpeed.NetSpeedText;
 import com.uaoanlao.uaoangsyplayer.R;
 import com.uaoanlao.uaoangsyplayer.RecyclerView.UaoanDeCodeRecyclerViewAdapter;
@@ -87,7 +88,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
     private TextView finish_button1,finish_button2; //重播  播放下一集
     private String setupURL="",setupTITLE="";
     private boolean setupCACHEWITHPLAY=false;
-
+    public int COLOR=Color.RED;
+    private AVLoadingIndicatorView avLoadingIndicatorView; //加载动画
+    public String LOADING="LineSpinFadeLoaderIndicator";
 
 
     public UaoanGSYPlayerView(Context context) {
@@ -138,6 +141,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
         shangyiji=view.findViewById(R.id.shangyiji);
         xiayiji=view.findViewById(R.id.xiayiji);
         xuanji=view.findViewById(R.id.xuanji);
+        avLoadingIndicatorView=view.findViewById(R.id.loading_indicator);
         top_layoutview=view.findViewById(R.id.top_layout_view); //顶部功能按钮
         setFullEndVisibility(); //在竖屏状态下隐藏横屏显示的按钮
         setTopBottonVisibility(GONE);
@@ -286,7 +290,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                         TextView speed_name=holder.itemView.findViewById(R.id.title);
                         speed_name.setText(arrayList.get(position).get("name").toString());
                         if (data.get(position).get("name").toString().replace("x","").equals(""+player.noneSpeed)){
-                            speed_name.setTextColor(Color.RED);
+                            speed_name.setTextColor(COLOR);
                         }else {
                             speed_name.setTextColor(Color.WHITE);
                         }
@@ -383,7 +387,6 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 times.setText(TimeUtils.stringForTime(player.getDuration()));
                 seekBar.setMax((int)player.getDuration());
                 seekBar.setProgress((int)player.getCurrentPositionWhenPlaying());
-
                 //跳过片尾
                 if (mmkv.isContainsMMKVKey("skipend")){
                     int to= (int) (player.getDuration()-player.getCurrentPositionWhenPlaying());
@@ -403,20 +406,25 @@ public class UaoanGSYPlayerView extends LinearLayout {
 
                 if (i==0){
                     loading.setVisibility(View.VISIBLE);
+                    err_layout.setVisibility(GONE);
                     netSpeedText.start();
                     //跳过片头
                     if (mmkv.isContainsMMKVKey("skiptitle")) {
-                        //player.setPlayPosition(mmkv.getMMKVInt("skiptitle"));
                         player.setSeekOnStart(mmkv.getMMKVInt("skiptitle"));
                     }
+
+
+
                 }
                 if (i==1){
                     //开始加载播放
+                    err_layout.setVisibility(GONE);
                     loading.setVisibility(View.VISIBLE);
                     netSpeedText.start();
                 }
                 if (i==3){
                     //缓冲
+                    err_layout.setVisibility(GONE);
                     loading.setVisibility(View.VISIBLE);
                     netSpeedText.start();
 
@@ -429,8 +437,6 @@ public class UaoanGSYPlayerView extends LinearLayout {
                     netSpeedText.stop();
                     play.setImageResource(R.mipmap.stop);
                     err_layout.setVisibility(GONE);
-
-
 
                     seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                         @Override
@@ -466,7 +472,6 @@ public class UaoanGSYPlayerView extends LinearLayout {
                             //onErrorButtonClick.onClick(v);
                         }
                     });
-
 
                 }
                 if (i==6){
@@ -604,6 +609,94 @@ public class UaoanGSYPlayerView extends LinearLayout {
     }
 
 
+    //加载动画
+    public void setLoading(int id){
+        if (id==1) {
+            avLoadingIndicatorView.setIndicator("BallBeatIndicator");
+        }
+        if (id==2) {
+            avLoadingIndicatorView.setIndicator("BallClipRotateIndicator");
+        }
+        if (id==3) {
+            avLoadingIndicatorView.setIndicator("BallClipRotateMultipleIndicator");
+        }
+        if (id==4) {
+            avLoadingIndicatorView.setIndicator("BallClipRotatePulseIndicator");
+        }
+        if (id==5) {
+            avLoadingIndicatorView.setIndicator("BallGridBeatIndicator");
+        }
+        if (id==6) {
+            avLoadingIndicatorView.setIndicator("BallGridPulseIndicator");
+        }
+        if (id==7) {
+            avLoadingIndicatorView.setIndicator("BallPulseIndicator");
+        }
+        if (id==8) {
+            avLoadingIndicatorView.setIndicator("BallPulseRiseIndicator");
+        }
+        if (id==9) {
+            avLoadingIndicatorView.setIndicator("BallPulseSyncIndicator");
+        }
+        if (id==10) {
+            avLoadingIndicatorView.setIndicator("BallRotateIndicator");
+        }
+        if (id==11) {
+            avLoadingIndicatorView.setIndicator("BallScaleIndicator");
+        }
+        if (id==12) {
+            avLoadingIndicatorView.setIndicator("BallScaleMultipleIndicator");
+        }
+        if (id==13) {
+            avLoadingIndicatorView.setIndicator("BallScaleRippleIndicator");
+        }
+        if (id==14) {
+            avLoadingIndicatorView.setIndicator("BallScaleRippleMultipleIndicator");
+        }
+        if (id==15) {
+            avLoadingIndicatorView.setIndicator("BallSpinFadeLoaderIndicator");
+        }
+        if (id==16) {
+            avLoadingIndicatorView.setIndicator("BallTrianglePathIndicator");
+        }
+        if (id==17) {
+            avLoadingIndicatorView.setIndicator("BallZigZagDeflectIndicator");
+        }
+        if (id==18) {
+            avLoadingIndicatorView.setIndicator("BallZigZagIndicator");
+        }
+        if (id==19) {
+            avLoadingIndicatorView.setIndicator("CubeTransitionIndicator");
+        }
+        if (id==20) {
+            avLoadingIndicatorView.setIndicator("LineScaleIndicator");
+        }
+        if (id==21) {
+            avLoadingIndicatorView.setIndicator("LineScalePartyIndicator");
+        }
+        if (id==22) {
+            avLoadingIndicatorView.setIndicator("LineScalePulseOutIndicator");
+        }
+        if (id==23) {
+            avLoadingIndicatorView.setIndicator("LineScalePulseOutRapidIndicator");
+        }
+        if (id==24) {
+            avLoadingIndicatorView.setIndicator("LineSpinFadeLoaderIndicator");
+        }
+        if (id==25) {
+            avLoadingIndicatorView.setIndicator("PacmanIndicator");
+        }
+        if (id==26) {
+            avLoadingIndicatorView.setIndicator("SemiCircleSpinIndicator");
+        }
+        if (id==27) {
+            avLoadingIndicatorView.setIndicator("SquareSpinIndicator");
+        }
+        if (id==28) {
+            avLoadingIndicatorView.setIndicator("TriangleSkewSpinIndicator");
+        }
+
+    }
 
     //播放失败
     public void setOnErrorButtonClick(OnErrorButtonClick onErrorButtonClick){
@@ -674,11 +767,6 @@ public class UaoanGSYPlayerView extends LinearLayout {
     private OnWindowVideoButton onWindowVideoButton;
 
 
-    //销毁
-    public void onVideoReleaseAllVideos(){
-        GSYVideoManager.releaseAllVideos();
-    }
-
     //全屏显示控件
     private void setFullStartVisibility(){
         top_layoutview.setVisibility(VISIBLE);
@@ -733,6 +821,10 @@ public class UaoanGSYPlayerView extends LinearLayout {
     //继续播放
     public void onVideoResume(boolean is){
         player.onVideoResume(is);
+    }
+    //销毁
+    public void onVideoReleaseAllVideos(){
+        GSYVideoManager.releaseAllVideos();
     }
 
     public EmptyControlVideo getPlayerView(){
@@ -798,7 +890,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(arrayList.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().replace("x","").equals(""+player.noneSpeed)){
-                    kp.setCardBackgroundColor(Color.RED);
+                    kp.setCardBackgroundColor(COLOR);
                 }else {
                     kp.setCardBackgroundColor(Color.parseColor("#99888585"));
                 }
@@ -843,7 +935,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(data.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().equals(getVideoType)){
-                    kp.setCardBackgroundColor(Color.RED);
+                    kp.setCardBackgroundColor(COLOR);
                 }else {
                     kp.setCardBackgroundColor(Color.parseColor("#99888585"));
                 }
@@ -911,7 +1003,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(arrayList.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().replace("x","").equals(""+player.speed)){
-                    kp.setCardBackgroundColor(Color.RED);
+                    kp.setCardBackgroundColor(COLOR);
                 }else {
                     kp.setCardBackgroundColor(Color.parseColor("#99888585"));
                 }
@@ -1014,7 +1106,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(arrayList.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().equals(mmkv.getMMKVString("decode"))){
-                    kp.setCardBackgroundColor(Color.RED);
+                    kp.setCardBackgroundColor(COLOR);
                 }else {
                     kp.setCardBackgroundColor(Color.parseColor("#99888585"));
                 }

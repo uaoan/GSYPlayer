@@ -12,6 +12,7 @@
     <com.uaoanlao.uaoangsyplayer.View.EmptyControlVideo
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/background_dark"
         android:id="@+id/player"/>
 
     <LinearLayout
@@ -83,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:indicatorName="BallPulseIndicator"
+            android:id="@+id/loading_indicator"
             />
         <TextView
             android:layout_width="wrap_content"

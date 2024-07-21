@@ -22,7 +22,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        minSdk 24
+        minSdk 26
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -72,7 +72,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.github.uaoan'
             artifactId = 'UaoanGSYPlayer'
-            version = "1.0"
+            version = "1.0.1"
             pom {
                 description = 'UaoanGSYPlayer'
             }
