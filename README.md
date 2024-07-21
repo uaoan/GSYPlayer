@@ -210,7 +210,7 @@ player.onVideoReleaseAllVideos();
 ```
 videoView.setBottomLayoutVisibility();
 ```
-| setBottomLayoutVisibility(a，b，c，d) | 隐藏底部UI按钮 |
+| setBottomLayoutVisibility(a，b，c) | 隐藏底部UI按钮 |
 |------------------------------|----------|
 | a                            | 上一集按钮     |
 | b                            | 下一集按钮     |
