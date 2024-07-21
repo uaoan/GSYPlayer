@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onDestroy();
 
-        GSYVideoManager.releaseAllVideos();
+        player.onVideoReleaseAllVideos();
 
 
 
