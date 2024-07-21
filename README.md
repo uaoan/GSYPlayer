@@ -111,6 +111,9 @@ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-rele
 player.setVideoLayout(player);
 
 
+//设置加载动画效果（28种动画 输入序号即可）
+player.setLoading(1);
+
 //设置播放链接
 String source1 = "http://43.248.129.14:15223/m3u8_cache/m3u8/62d22999ba487d228bc965fc135c7014.m3u8";
 player.setUp(source1, false, "唐朝诡事录第二季-第一集");
@@ -244,22 +247,18 @@ new Screen().setStaerActivity(MainActivity.this)
 
 
 
- ### [更多方法请点击前往 >](https://github.com/Doikki/DKVideoPlayer/wiki/API)
-
-
- ### 感谢
-   **[DKVideoPlayer](https://github.com/Doikki/DKVideoPlayer)** 
-
-
-  **————————————————————————————————————————————————————————————————————————** 
 
 
  ### [更多方法请点击前往 >](https://github.com/CarGuo/GSYVideoPlayer)
 
 
  ### 感谢
-   **[DKVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer)** 
+   **[GSYVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer)** 
 
 
  **————————————————————————————————————————————————————————————————————————** 
 
+
+![输入图片说明](53BAE58A58C553975CCD914A2BFC8D00.jpg)
+![输入图片说明](8759D0817976352A300312F9DEE40D80.jpg)
+![输入图片说明](AB539379B5CA2E0C8A36B419F918C30B.jpg)
