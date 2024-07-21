@@ -244,22 +244,18 @@ new Screen().setStaerActivity(MainActivity.this)
 
 
 
- ### [更多方法请点击前往 >](https://github.com/Doikki/DKVideoPlayer/wiki/API)
-
-
- ### 感谢
-   **[DKVideoPlayer](https://github.com/Doikki/DKVideoPlayer)** 
-
-
-  **————————————————————————————————————————————————————————————————————————** 
 
 
  ### [更多方法请点击前往 >](https://github.com/CarGuo/GSYVideoPlayer)
 
 
  ### 感谢
-   **[DKVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer)** 
+   **[GSYVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer)** 
 
 
  **————————————————————————————————————————————————————————————————————————** 
 
+
+![输入图片说明](53BAE58A58C553975CCD914A2BFC8D00.jpg)
+![输入图片说明](8759D0817976352A300312F9DEE40D80.jpg)
+![输入图片说明](AB539379B5CA2E0C8A36B419F918C30B.jpg)
