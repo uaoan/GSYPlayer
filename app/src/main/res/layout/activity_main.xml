@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
+
+    <com.uaoanlao.uaoangsyplayer.View.UaoanGSYPlayerView
+        android:id="@+id/detail_player"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/exo"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="exo"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ijk"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="ijk"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ali"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="阿里"/>
+    </LinearLayout>
+
+</LinearLayout>
