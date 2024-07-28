@@ -12,7 +12,7 @@ allprojects {
  **在 app 的 settings.gradle 文件中找到 dependencies{} 代码块，并在其中加入以下语句：** 
 
 ```
-implementation 'com.github.uaoan:GSYPlayer:1.0'
+implementation 'com.github.uaoan:GSYPlayer:1.0.1'
 implementation 'com.tencent:mmkv-static:1.3.0'
 implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.6.0-release-jitpack'
 implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-release-jitpack'
@@ -45,6 +45,7 @@ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-rele
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
 ```
 
 ###  **简单使用** 
@@ -74,7 +75,7 @@ implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-rele
     protected void onResume() {
         super.onResume();
         //继续播放
-        player.onVideoPause();
+        player.onVideoResume(false);
     }
 
     @Override
@@ -210,7 +211,7 @@ player.onVideoReleaseAllVideos();
 ```
 videoView.setBottomLayoutVisibility();
 ```
-| setBottomLayoutVisibility(a，b，c，d) | 隐藏底部UI按钮 |
+| setBottomLayoutVisibility(a，b，c) | 隐藏底部UI按钮 |
 |------------------------------|----------|
 | a                            | 上一集按钮     |
 | b                            | 下一集按钮     |
