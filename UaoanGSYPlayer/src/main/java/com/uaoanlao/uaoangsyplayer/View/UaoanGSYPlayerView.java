@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.os.BatteryManager;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -48,6 +50,7 @@ import com.uaoanlao.uaoangsyplayer.TimeUtils;
 import com.uaoanlao.uaoangsyplayer.mmkv.UaoanMMKV;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -91,6 +94,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
     public int COLOR=Color.RED;
     private AVLoadingIndicatorView avLoadingIndicatorView; //加载动画
     public String LOADING="LineSpinFadeLoaderIndicator";
+    private ImageView elec100_0; //电量
+    private TextView elecText;
+    private TextView getTime; //时间
 
 
     public UaoanGSYPlayerView(Context context) {
@@ -141,6 +147,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
         shangyiji=view.findViewById(R.id.shangyiji);
         xiayiji=view.findViewById(R.id.xiayiji);
         xuanji=view.findViewById(R.id.xuanji);
+        getTime=view.findViewById(R.id.time);
+        elec100_0=view.findViewById(R.id.elec100_0);
+        elecText=view.findViewById(R.id.elec);
         avLoadingIndicatorView=view.findViewById(R.id.loading_indicator);
         top_layoutview=view.findViewById(R.id.top_layout_view); //顶部功能按钮
         setFullEndVisibility(); //在竖屏状态下隐藏横屏显示的按钮
@@ -213,7 +222,8 @@ public class UaoanGSYPlayerView extends LinearLayout {
         shezhi.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                View vw=inflate(activity,R.layout.dialog_menu,null);
+                setTopBottonVisibility(GONE);
+                View vw=inflate(activity,R.layout.dialog_menus,null);
                 final AlertDialog tc=new AlertDialog.Builder(activity)
                         .setView(vw)
                         .show();
@@ -290,9 +300,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
                         TextView speed_name=holder.itemView.findViewById(R.id.title);
                         speed_name.setText(arrayList.get(position).get("name").toString());
                         if (data.get(position).get("name").toString().replace("x","").equals(""+player.noneSpeed)){
-                            speed_name.setTextColor(COLOR);
-                        }else {
                             speed_name.setTextColor(Color.WHITE);
+                        }else {
+                            speed_name.setTextColor(Color.parseColor("#66ffffff"));
                         }
                         speed_name.setOnClickListener(new OnClickListener() {
                             @Override
@@ -527,6 +537,29 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 }else {
                     if (player.issuo==false) {
                         setTopBottonVisibility(VISIBLE);
+                        //获取电量
+                        int elec=getElecBatteryLevel(activity);
+                        elecText.setText(elec+"%");
+                        if (elec>=90){
+                            elec100_0.setImageResource(R.mipmap.elec100);
+                        }
+                        if (elec<80){
+                            elec100_0.setImageResource(R.mipmap.elec80);
+                        }
+                        if (elec<60){
+                            elec100_0.setImageResource(R.mipmap.elec50);
+                        }
+                        if (elec<30){
+                            elec100_0.setImageResource(R.mipmap.elec20);
+                        }
+                        if (elec<10){
+                            elec100_0.setImageResource(R.mipmap.elec0);
+                        }
+
+                        //获取时间
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                        String currentTime = sdf.format(new Date());
+                        getTime.setText(currentTime);
                     }
                     suo.setVisibility(VISIBLE);
 
@@ -844,6 +877,13 @@ public class UaoanGSYPlayerView extends LinearLayout {
     }
 
 
+    //获取电量
+    public static int getElecBatteryLevel(Context context) {
+        BatteryManager batteryManager = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
+        return batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+    }
+
+
 
     private void setParamsLayout(View linearLayout,int point){
         ViewGroup.LayoutParams layoutParams1 = linearLayout.getLayoutParams();
@@ -883,16 +923,15 @@ public class UaoanGSYPlayerView extends LinearLayout {
             hashMap.put("name",strings.get(po));
             arrayList.add(hashMap);
         }
-        uaoanRecyclerView.setAdapter(recyclerView, R.layout.dialog_menu_item, arrayList, new UaoanRecyclerView.OnRecyclerViewAdapter() {
+        uaoanRecyclerView.setAdapter(recyclerView, R.layout.dialog_menu_items, arrayList, new UaoanRecyclerView.OnRecyclerViewAdapter() {
             @Override
             public void bindView(UaoanRecyclerViewAdapter.ViewHolder holder, final ArrayList<HashMap<String, Object>> data, final int position) {
                 TextView speed_name=holder.itemView.findViewById(R.id.title);
-                CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(arrayList.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().replace("x","").equals(""+player.noneSpeed)){
-                    kp.setCardBackgroundColor(COLOR);
+                    speed_name.setTextColor(Color.WHITE);
                 }else {
-                    kp.setCardBackgroundColor(Color.parseColor("#99888585"));
+                    speed_name.setTextColor(Color.parseColor("#66ffffff"));
                 }
                 speed_name.setOnClickListener(new OnClickListener() {
                     @Override
@@ -928,16 +967,15 @@ public class UaoanGSYPlayerView extends LinearLayout {
             hashMap.put("name",strings.get(po));
             arrayList.add(hashMap);
         }
-        uaoanRecyclerView.setVideoTypeAdapter(recyclerView, R.layout.dialog_menu_item, arrayList, new UaoanRecyclerView.OnVideoTypeRecyclerViewAdapter() {
+        uaoanRecyclerView.setVideoTypeAdapter(recyclerView, R.layout.dialog_menu_items, arrayList, new UaoanRecyclerView.OnVideoTypeRecyclerViewAdapter() {
             @Override
             public void bindView(UaoanVideoTypeRecyclerViewAdapter.ViewHolder holder, final ArrayList<HashMap<String, Object>> data, final int position) {
                 TextView speed_name=holder.itemView.findViewById(R.id.title);
-                CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(data.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().equals(getVideoType)){
-                    kp.setCardBackgroundColor(COLOR);
+                    speed_name.setTextColor(Color.WHITE);
                 }else {
-                    kp.setCardBackgroundColor(Color.parseColor("#99888585"));
+                    speed_name.setTextColor(Color.parseColor("#66ffffff"));
                 }
                 speed_name.setOnClickListener(new OnClickListener() {
                     @Override
@@ -996,16 +1034,15 @@ public class UaoanGSYPlayerView extends LinearLayout {
             hashMap.put("name",strings.get(po));
             arrayList.add(hashMap);
         }
-        uaoanRecyclerView.setLongSpeedAdapter(recyclerView, R.layout.dialog_menu_item, arrayList, new UaoanRecyclerView.OnLongSpeedRecyclerViewAdapter() {
+        uaoanRecyclerView.setLongSpeedAdapter(recyclerView, R.layout.dialog_menu_items, arrayList, new UaoanRecyclerView.OnLongSpeedRecyclerViewAdapter() {
             @Override
             public void bindView(UaoanLongSpeedRecyclerViewAdapter.ViewHolder holder, final ArrayList<HashMap<String, Object>> data, final int position) {
                 TextView speed_name=holder.itemView.findViewById(R.id.title);
-                CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(arrayList.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().replace("x","").equals(""+player.speed)){
-                    kp.setCardBackgroundColor(COLOR);
+                    speed_name.setTextColor(Color.WHITE);
                 }else {
-                    kp.setCardBackgroundColor(Color.parseColor("#99888585"));
+                    speed_name.setTextColor(Color.parseColor("#66ffffff"));
                 }
                 speed_name.setOnClickListener(new OnClickListener() {
                     @Override
@@ -1099,16 +1136,15 @@ public class UaoanGSYPlayerView extends LinearLayout {
             hashMap.put("name",strings.get(po));
             arrayList.add(hashMap);
         }
-        uaoanRecyclerView.setDeCodeAdapter(recyclerView, R.layout.dialog_menu_item, arrayList, new UaoanRecyclerView.OnDeCodeRecyclerViewAdapters() {
+        uaoanRecyclerView.setDeCodeAdapter(recyclerView, R.layout.dialog_menu_items, arrayList, new UaoanRecyclerView.OnDeCodeRecyclerViewAdapters() {
             @Override
             public void bindView(UaoanDeCodeRecyclerViewAdapter.ViewHolder holder, final ArrayList<HashMap<String, Object>> data, final int position) {
                 TextView speed_name=holder.itemView.findViewById(R.id.title);
-                CardView kp=holder.itemView.findViewById(R.id.kp);
                 speed_name.setText(arrayList.get(position).get("name").toString());
                 if (arrayList.get(position).get("name").toString().equals(mmkv.getMMKVString("decode"))){
-                    kp.setCardBackgroundColor(COLOR);
+                    speed_name.setTextColor(Color.WHITE);
                 }else {
-                    kp.setCardBackgroundColor(Color.parseColor("#99888585"));
+                    speed_name.setTextColor(Color.parseColor("#66ffffff"));
                 }
                 speed_name.setOnClickListener(new OnClickListener() {
                     @Override

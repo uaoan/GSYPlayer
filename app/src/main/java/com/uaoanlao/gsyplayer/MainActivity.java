@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,13 +35,25 @@ public class MainActivity extends AppCompatActivity {
         exo=findViewById(R.id.exo);
         ijk=findViewById(R.id.ijk);
         ali=findViewById(R.id.ali);
-       // player.inits(this);
+
 
 
         String source1 = "http://43.248.129.14:15223/m3u8_cache/m3u8/62d22999ba487d228bc965fc135c7014.m3u8";
         player.setUp(source1, false, "唐朝诡事录第二季-第一集");
         //PlayerFactory.setPlayManager(AliPlayerManager.class);
         player.startPlayLogic();
+
+        final EditText edit_name=findViewById(R.id.edit_name);
+        final EditText edit_url=findViewById(R.id.edit_url);
+        final Button button=findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.onVideoReleaseAllVideos();
+                player.setUp(edit_url.getText().toString(), false, edit_name.getText().toString());
+                player.startPlayLogic();
+            }
+        });
 
         exo.setOnClickListener(new View.OnClickListener() {
             @Override

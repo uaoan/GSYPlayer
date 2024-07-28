@@ -14,6 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="250dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="输入标题"
+            android:text="唐朝诡事录第二季-第一集"
+            android:layout_marginRight="10dp"
+            android:singleLine="true"
+            android:id="@+id/edit_name"
+            android:layout_weight="1"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入播放链接"
+            android:text="http://43.248.129.14:15223/m3u8_cache/m3u8/62d22999ba487d228bc965fc135c7014.m3u8"
+            android:id="@+id/edit_url"
+            android:maxLines="2"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="播放"
+            android:id="@+id/button"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

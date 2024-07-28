@@ -72,7 +72,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.github.uaoan'
             artifactId = 'UaoanGSYPlayer'
-            version = "1.0.1"
+            version = "1.0.2"
             pom {
                 description = 'UaoanGSYPlayer'
             }
