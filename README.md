@@ -12,7 +12,7 @@ allprojects {
  **在 app 的 settings.gradle 文件中找到 dependencies{} 代码块，并在其中加入以下语句：** 
 
 ```
-implementation 'com.github.uaoan:GSYPlayer:1.0.1'
+implementation 'com.github.uaoan:GSYPlayer:1.0.2'
 implementation 'com.tencent:mmkv-static:1.3.0'
 implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.6.0-release-jitpack'
 implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-release-jitpack'
@@ -141,6 +141,9 @@ player.onVideoResume(false);
 //销毁
 player.onVideoReleaseAllVideos();
 
+//获取原GSY播放器对象
+player.getPlayerView()
+
 
 //返回按下
 @Override
@@ -233,6 +236,10 @@ videoView.setTopLayoutVisibility();
 
 
 ### 投屏
+
+ **配合DLNA投屏使用**
+[DLNA投屏库](https://github.com/uaoan/UaoanDLNA) 
+
  **投屏使用代码** 
 
 
