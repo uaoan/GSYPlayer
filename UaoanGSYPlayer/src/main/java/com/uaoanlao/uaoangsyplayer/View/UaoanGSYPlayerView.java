@@ -223,6 +223,8 @@ public class UaoanGSYPlayerView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 setTopBottonVisibility(GONE);
+                suo.setVisibility(GONE);
+                isClick = false;
                 View vw=inflate(activity,R.layout.dialog_menus,null);
                 final AlertDialog tc=new AlertDialog.Builder(activity)
                         .setView(vw)
@@ -255,6 +257,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 //解码
                 setDecodeList(tc,vw);
 
+
             }
         });
 
@@ -263,6 +266,8 @@ public class UaoanGSYPlayerView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 setTopBottonVisibility(GONE);
+                suo.setVisibility(GONE);
+                isClick = false;
                 View vw=inflate(activity,R.layout.speed_dialog,null);
                 final AlertDialog tc=new AlertDialog.Builder(activity)
                         .setView(vw)
@@ -315,6 +320,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                         });
                     }
                 }).setLinearLayoutManager(recyclerView,activity);
+
 
             }
         });
@@ -500,6 +506,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                         @Override
                         public void onClick(View v) {
                             //播放下一集
+                            finish_layout.setVisibility(VISIBLE);
                             onDownVideoButton.onClick(v);
                         }
                     });
@@ -543,7 +550,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                         if (elec>=90){
                             elec100_0.setImageResource(R.mipmap.elec100);
                         }
-                        if (elec<80){
+                        if (elec<90){
                             elec100_0.setImageResource(R.mipmap.elec80);
                         }
                         if (elec<60){
@@ -574,7 +581,6 @@ public class UaoanGSYPlayerView extends LinearLayout {
                         @Override
                         public void onFinish() {
                             setTopBottonVisibility(GONE);
-                            suo.setVisibility(GONE);
                             suo.setVisibility(GONE);
                             isClick = false;
                         }
