@@ -141,6 +141,9 @@ player.onVideoResume(false);
 //销毁
 player.onVideoReleaseAllVideos();
 
+//获取原GSY播放器对象
+player.getPlayerView()
+
 
 //返回按下
 @Override
