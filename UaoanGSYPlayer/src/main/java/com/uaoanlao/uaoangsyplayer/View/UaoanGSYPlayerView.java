@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.os.BatteryManager;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -45,6 +46,7 @@ import com.uaoanlao.uaoangsyplayer.RecyclerView.UaoanDeCodeRecyclerViewAdapter;
 import com.uaoanlao.uaoangsyplayer.RecyclerView.UaoanLongSpeedRecyclerViewAdapter;
 import com.uaoanlao.uaoangsyplayer.RecyclerView.UaoanRecyclerView;
 import com.uaoanlao.uaoangsyplayer.RecyclerView.UaoanRecyclerViewAdapter;
+import com.uaoanlao.uaoangsyplayer.RecyclerView.UaoanTimeFinishRecyclerViewAdapter;
 import com.uaoanlao.uaoangsyplayer.RecyclerView.UaoanVideoTypeRecyclerViewAdapter;
 import com.uaoanlao.uaoangsyplayer.TimeUtils;
 import com.uaoanlao.uaoangsyplayer.mmkv.UaoanMMKV;
@@ -98,6 +100,10 @@ public class UaoanGSYPlayerView extends LinearLayout {
     private TextView elecText;
     private TextView getTime; //时间
 
+    private int timefinish=0; //定时关闭
+
+    private AlertDialog.Builder dialog;
+    private AlertDialog tc;
 
     public UaoanGSYPlayerView(Context context) {
         super(context);
@@ -181,6 +187,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
             mmkv.setMMKV("decode","软解码");
         }
 
+        //弹窗初始化
+        dialog=new AlertDialog.Builder(activity);
+        tc=dialog.create();
 
         //小窗
         xiaochuang.setOnClickListener(new OnClickListener() {
@@ -218,6 +227,7 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 onSeleVideoButton.onClick(v);
             }
         });
+
         //设置
         shezhi.setOnClickListener(new OnClickListener() {
             @Override
@@ -226,9 +236,8 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 suo.setVisibility(GONE);
                 isClick = false;
                 View vw=inflate(activity,R.layout.dialog_menus,null);
-                final AlertDialog tc=new AlertDialog.Builder(activity)
-                        .setView(vw)
-                        .show();
+                tc.setView(vw);
+                tc.show();
                 tc.getWindow().setGravity(Gravity.RIGHT);
                 tc.getWindow().setBackgroundDrawable(new ColorDrawable());
                 LinearLayout lin=vw.findViewById(R.id.layout);
@@ -257,9 +266,14 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 //解码
                 setDecodeList(tc,vw);
 
+                //定时关闭
+                //setTimeFinishList(tc,vw);
+
 
             }
         });
+
+
 
         //倍速
         speed_text.setOnClickListener(new OnClickListener() {
@@ -383,11 +397,17 @@ public class UaoanGSYPlayerView extends LinearLayout {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     setParamsLayout(vw, ViewGroup.LayoutParams.MATCH_PARENT);
                     setFullStartVisibility();
+                    // 隐藏状态栏
+                    Window window = activity.getWindow();
+                    window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);  //横屏后自动旋转
                 } else {
                     //退出全屏
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     setParamsLayout(vw, ViewGroup.LayoutParams.MATCH_PARENT,height);
+                    // 恢复状态栏显示
+                    Window window = activity.getWindow();
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                     setFullEndVisibility();
                 }
                 player.setRotateWithSystem(true);
@@ -493,23 +513,26 @@ public class UaoanGSYPlayerView extends LinearLayout {
                 if (i==6){
                     //播放完毕
                     finish_layout.setVisibility(VISIBLE);
-                    finish_button1.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //重播
-                            setUp(setupURL,setupCACHEWITHPLAY,setupTITLE);
-                            player.startPlayLogic();
-                            finish_layout.setVisibility(GONE);
-                        }
-                    });
-                    finish_button2.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //播放下一集
-                            finish_layout.setVisibility(VISIBLE);
-                            onDownVideoButton.onClick(v);
-                        }
-                    });
+                    if (timefinish==1){
+                        activity.finish(); //如果定时是播放本集则就关闭页面
+                    }
+                        finish_button1.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //重播
+                                setUp(setupURL, setupCACHEWITHPLAY, setupTITLE);
+                                player.startPlayLogic();
+                                finish_layout.setVisibility(GONE);
+                            }
+                        });
+                        finish_button2.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //播放下一集
+                                finish_layout.setVisibility(VISIBLE);
+                                onDownVideoButton.onClick(v);
+                            }
+                        });
                     onVideoPlayComplete.onComplete();
                 }
                 //Toast.makeText(context, ""+i, Toast.LENGTH_SHORT).show();
@@ -877,6 +900,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
         } else {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             setParamsLayout(vw, ViewGroup.LayoutParams.MATCH_PARENT,height);
+            // 恢复状态栏显示
+            Window window = activity.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setFullEndVisibility();
             return true;
         }
@@ -1174,5 +1200,89 @@ public class UaoanGSYPlayerView extends LinearLayout {
 
     }
 
+/*
+
+    //定时关闭
+    private void setTimeFinishList(final AlertDialog tc,final View vw){
+        final UaoanRecyclerView uaoanRecyclerView=new UaoanRecyclerView();
+        final RecyclerView recyclerView=vw.findViewById(R.id.recycler5);
+        final TextView textView=vw.findViewById(R.id.timefinish_text);
+        textView.setText("定时关闭 (不开启)");
+        recyclerView.setNestedScrollingEnabled(false);
+        final ArrayList<HashMap<String,Object>> arrayList=new ArrayList<>();
+        HashMap<String,Object> hashMap=new HashMap<>();
+        ArrayList<String> strings=new ArrayList<>();
+        strings.add("不开启");
+        strings.add("播完本集");
+        strings.add("30分钟");
+        strings.add("60分钟");
+        strings.add("90分钟");
+        for (int po=0;po<strings.size();po++){
+            hashMap=new HashMap<>();
+            hashMap.put("name",strings.get(po));
+            arrayList.add(hashMap);
+        }
+        uaoanRecyclerView.setTimeFinishAdapter(recyclerView, R.layout.dialog_menu_items, arrayList, new UaoanRecyclerView.OnTimeFinishRecyclerViewAdapter() {
+            @Override
+            public void bindView(UaoanTimeFinishRecyclerViewAdapter.ViewHolder holder, final ArrayList<HashMap<String, Object>> data, final int position) {
+                final TextView names=holder.itemView.findViewById(R.id.title);
+                names.setText(arrayList.get(position).get("name").toString());
+                if (position==timefinish){
+                    names.setTextColor(Color.WHITE);
+                }else {
+                    names.setTextColor(Color.parseColor("#66ffffff"));
+                }
+
+                names.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        timefinish=position;
+                        recyclerView.getAdapter().notifyDataSetChanged();
+
+                        if (position==0){
+                            textView.setText("定时关闭 (不开启)");
+                        }
+                        if (position==1){
+                            textView.setText("定时关闭 (播完本集)");
+                        }
+                        if (position==2){
+                            //30分钟（1800000）
+                            startCountDown(textView,1800000);
+
+                        }
+                        if (position==3){
+                            //60分钟（3600000）
+                            startCountDown(textView,3600000);
+
+                        }
+                        if (position==4){
+                            //90分钟（5400000）
+                            startCountDown(textView,5400000);
+
+                        }
+
+
+
+
+                    }
+                });
+            }
+        }).setHorizontalLinearLayoutManager(recyclerView,activity);
+
+    }
+*/
+
+
+
+    private void startCountDown(final TextView textView, int totalMillis) {
+        
+    }
+
+    public void setProgressColor(){
+        //修改拖动条 进度条背景
+        player.setDialogVolumeProgressBar(activity.getDrawable(R.drawable.video_volume_progress_bg));
+        player.setDialogProgressBar(activity.getDrawable(R.drawable.video_dialog_progress));
+        setDialogProgressTextColor(Color.WHITE,Color.LTGRAY);
+    }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,18 +20,19 @@
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_marginRight="10dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="40dp"
-        android:gravity="center_vertical"
-        android:text="播放倍速"
-        android:shadowColor="@android:color/background_light"
-        android:shadowRadius="1"
-        android:shadowDy="1"
-        android:shadowDx="1"
-        android:textColor="@android:color/background_light"
-        android:textSize="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="40dp"
+            android:shadowColor="@android:color/background_light"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:text="播放倍速"
+            android:textColor="@android:color/background_light"
+            android:textSize="15dp"/>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,6 +95,33 @@
             android:layout_height="40dp"
             android:id="@+id/recycler3"/>
         </androidx.cardview.widget.CardView>
+
+       <!-- <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:gravity="center_vertical"
+            android:text="定时关闭"
+            android:shadowColor="@android:color/background_light"
+            android:shadowRadius="1"
+            android:shadowDy="1"
+            android:shadowDx="1"
+            android:id="@+id/timefinish_text"
+            android:textColor="@android:color/background_light"
+            android:textSize="15dp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#33FFFFFF"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/recycler5"/>
+        </androidx.cardview.widget.CardView>
+-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

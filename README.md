@@ -12,7 +12,7 @@ allprojects {
  **在 app 的 settings.gradle 文件中找到 dependencies{} 代码块，并在其中加入以下语句：** 
 
 ```
-implementation 'com.github.uaoan:GSYPlayer:1.0.3'
+implementation 'com.github.uaoan:GSYPlayer:1.0.2'
 implementation 'com.tencent:mmkv-static:1.3.0'
 implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.6.0-release-jitpack'
 implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.6.0-release-jitpack'

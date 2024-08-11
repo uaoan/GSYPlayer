@@ -126,4 +126,16 @@ public class UaoanRecyclerView {
     public interface OnDeCodeRecyclerViewAdapters{
         void bindView(UaoanDeCodeRecyclerViewAdapter.ViewHolder holder, ArrayList<HashMap<String, Object>> data, final int position);
     }
+
+    public static OnTimeFinishRecyclerViewAdapter onTimeFinishRecycler;
+    //设置适配器
+    public UaoanRecyclerView setTimeFinishAdapter(RecyclerView byRecyclerView, int lay, ArrayList<HashMap<String, Object>> arrayList, OnTimeFinishRecyclerViewAdapter onTimeFinishRecyclerViewAdapter){
+        onTimeFinishRecycler=onTimeFinishRecyclerViewAdapter;
+        byRecyclerView.setAdapter(new UaoanTimeFinishRecyclerViewAdapter(byRecyclerView.getContext(), lay,arrayList));
+        return this;
+    }
+
+    public interface OnTimeFinishRecyclerViewAdapter{
+        void bindView(UaoanTimeFinishRecyclerViewAdapter.ViewHolder holder, ArrayList<HashMap<String, Object>> data, final int position);
+    }
 }
