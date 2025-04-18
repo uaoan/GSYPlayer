@@ -162,7 +162,12 @@ public class UaoanGSYPlayerView extends LinearLayout {
         avLoadingIndicatorView=view.findViewById(R.id.loading_indicator);
         top_layoutview=view.findViewById(R.id.top_layout_view); //顶部功能按钮
         setFullEndVisibility(); //在竖屏状态下隐藏横屏显示的按钮
-        setTopBottonVisibility(GONE);
+        
+        // 设置默认显示控制器
+        setTopBottonVisibility(VISIBLE);
+        suo.setVisibility(VISIBLE);
+        isClick = true;
+        
         mmkv.init(activity); //初始化mmkv
 
         //长按倍速
@@ -418,6 +423,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
                     xiayiji.setVisibility(savedBottomVisibility[1]);
                     xuanji.setVisibility(savedBottomVisibility[2]);
                     finish_card2.setVisibility(savedBottomVisibility[1]);
+                    
+                    // 确保倍速按钮在竖屏模式下依然可见
+                    speed_text.setVisibility(VISIBLE);
                 }
                 player.setRotateWithSystem(true);
 
@@ -857,7 +865,8 @@ public class UaoanGSYPlayerView extends LinearLayout {
         top_layoutview.setVisibility(GONE);
         // 不在这里直接修改底部控件的可见性，只隐藏顶部控件
         // 底部控件的可见性将由onBackPressed或退出全屏方法单独处理
-        speed_text.setVisibility(GONE);
+        // 保留倍速按钮，不隐藏
+        // speed_text.setVisibility(GONE);
     }
 
     //点击显示隐藏按钮
@@ -923,6 +932,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
             xiayiji.setVisibility(savedBottomVisibility[1]);
             xuanji.setVisibility(savedBottomVisibility[2]);
             finish_card2.setVisibility(savedBottomVisibility[1]);
+            
+            // 确保倍速按钮在竖屏模式下依然可见
+            speed_text.setVisibility(VISIBLE);
             
             return true;
         }
