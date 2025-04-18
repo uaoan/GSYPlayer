@@ -105,6 +105,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
     private AlertDialog.Builder dialog;
     private AlertDialog tc;
 
+    // 保存底部控件的可见性设置
+    private int[] savedBottomVisibility = new int[]{VISIBLE, VISIBLE, VISIBLE};
+
     public UaoanGSYPlayerView(Context context) {
         super(context);
         init(context,null, 0);
@@ -409,6 +412,12 @@ public class UaoanGSYPlayerView extends LinearLayout {
                     Window window = activity.getWindow();
                     window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                     setFullEndVisibility();
+                    
+                    // 恢复保存的底部控件可见性设置
+                    shangyiji.setVisibility(savedBottomVisibility[0]);
+                    xiayiji.setVisibility(savedBottomVisibility[1]);
+                    xuanji.setVisibility(savedBottomVisibility[2]);
+                    finish_card2.setVisibility(savedBottomVisibility[1]);
                 }
                 player.setRotateWithSystem(true);
 
@@ -668,6 +677,9 @@ public class UaoanGSYPlayerView extends LinearLayout {
         xiayiji.setVisibility(ks2);
         xuanji.setVisibility(ks3);
         finish_card2.setVisibility(ks2);
+        
+        // 保存设置以便全屏时应用
+        savedBottomVisibility = new int[]{ks1, ks2, ks3};
     }
 
 
@@ -832,18 +844,19 @@ public class UaoanGSYPlayerView extends LinearLayout {
     //全屏显示控件
     private void setFullStartVisibility(){
         top_layoutview.setVisibility(VISIBLE);
-        shangyiji.setVisibility(VISIBLE);
-        xiayiji.setVisibility(VISIBLE);
-        xuanji.setVisibility(VISIBLE);
+        // 使用保存的设置而不是直接设置为VISIBLE
+        shangyiji.setVisibility(savedBottomVisibility[0]);
+        xiayiji.setVisibility(savedBottomVisibility[1]);
+        xuanji.setVisibility(savedBottomVisibility[2]);
+        finish_card2.setVisibility(savedBottomVisibility[1]);
         speed_text.setVisibility(VISIBLE);
     }
 
     //竖屏隐藏控件
     private void setFullEndVisibility(){
         top_layoutview.setVisibility(GONE);
-        shangyiji.setVisibility(GONE);
-        xiayiji.setVisibility(GONE);
-        xuanji.setVisibility(GONE);
+        // 不在这里直接修改底部控件的可见性，只隐藏顶部控件
+        // 底部控件的可见性将由onBackPressed或退出全屏方法单独处理
         speed_text.setVisibility(GONE);
     }
 
@@ -904,6 +917,13 @@ public class UaoanGSYPlayerView extends LinearLayout {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setFullEndVisibility();
+            
+            // 恢复保存的底部控件可见性设置
+            shangyiji.setVisibility(savedBottomVisibility[0]);
+            xiayiji.setVisibility(savedBottomVisibility[1]);
+            xuanji.setVisibility(savedBottomVisibility[2]);
+            finish_card2.setVisibility(savedBottomVisibility[1]);
+            
             return true;
         }
     }
