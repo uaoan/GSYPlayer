@@ -1,3 +1,8 @@
+# 项目已不维护了，最新项目请转移到  [UaoanDkVideoPlayer](https://github.com/uaoan/UaoanDKVideoPlayer.git)
+# 项目已不维护了，最新项目请转移到  [UaoanDkVideoPlayer](https://github.com/uaoan/UaoanDKVideoPlayer.git)
+# 项目已不维护了，最新项目请转移到  [UaoanDkVideoPlayer](https://github.com/uaoan/UaoanDKVideoPlayer.git)
+
+
 ### 集成
  **1.在 project 的 build.gradle 文件中找到 allprojects{} 代码块添加以下代码：** 
 
